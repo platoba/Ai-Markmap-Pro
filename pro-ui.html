@@ -1,0 +1,448 @@
+<!-- Pro UI Components - Insert before </body> -->
+
+<!-- History Panel Modal -->
+<div id="history-modal" class="modal-overlay hidden">
+    <div class="modal-content" style="width: 800px; max-height: 80vh;">
+        <button class="modal-close-btn" onclick="closeHistoryModal()">&times;</button>
+        <div class="panel-header">
+            <div class="panel-title">📚 History</div>
+        </div>
+        <div style="padding: 1rem;">
+            <input type="text" id="history-search" class="config-input" placeholder="Search history..." style="margin-bottom: 1rem;">
+            <div id="history-list" style="max-height: 400px; overflow-y: auto;">
+                <!-- History items will be inserted here -->
+            </div>
+            <div class="button-row" style="margin-top: 1rem;">
+                <button class="control-btn view-btn" onclick="exportHistory()">📤 Export All</button>
+                <button class="control-btn view-btn" onclick="importHistory()">📥 Import</button>
+                <button class="control-btn clear-btn" onclick="clearHistory()">🗑️ Clear All</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Template Selector Modal -->
+<div id="template-modal" class="modal-overlay hidden">
+    <div class="modal-content" style="width: 700px;">
+        <button class="modal-close-btn" onclick="closeTemplateModal()">&times;</button>
+        <div class="panel-header">
+            <div class="panel-title">📦 Templates</div>
+        </div>
+        <div style="padding: 1rem;">
+            <div id="template-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                <!-- Template cards will be inserted here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Selector Modal -->
+<div id="theme-modal" class="modal-overlay hidden">
+    <div class="modal-content" style="width: 600px;">
+        <button class="modal-close-btn" onclick="closeThemeModal()">&times;</button>
+        <div class="panel-header">
+            <div class="panel-title">🎨 Themes</div>
+        </div>
+        <div style="padding: 1rem;">
+            <div id="theme-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
+                <!-- Theme cards will be inserted here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Prompt Library Modal -->
+<div id="prompt-library-modal" class="modal-overlay hidden">
+    <div class="modal-content" style="width: 700px; max-height: 80vh;">
+        <button class="modal-close-btn" onclick="closePromptLibraryModal()">&times;</button>
+        <div class="panel-header">
+            <div class="panel-title">💡 Prompt Library</div>
+        </div>
+        <div style="padding: 1rem; max-height: 500px; overflow-y: auto;">
+            <div id="prompt-list">
+                <!-- Prompt items will be inserted here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Share Modal -->
+<div id="share-modal" class="modal-overlay hidden">
+    <div class="modal-content" style="width: 600px;">
+        <button class="modal-close-btn" onclick="closeShareModal()">&times;</button>
+        <div class="panel-header">
+            <div class="panel-title">🔗 Share</div>
+        </div>
+        <div style="padding: 1rem;">
+            <p style="margin-bottom: 1rem;">Share this mind map with others:</p>
+            <textarea id="share-url" readonly style="width: 100%; height: 100px; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-family: monospace; font-size: 0.9rem;"></textarea>
+            <div class="button-row" style="margin-top: 1rem;">
+                <button class="control-btn ai-btn" onclick="copyShareUrl()">📋 Copy URL</button>
+                <button class="control-btn view-btn" onclick="openShareUrl()">🔗 Open in New Tab</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Pro UI Styles */
+.history-item {
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.history-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+    border-color: #667eea;
+}
+
+.history-item-title {
+    font-weight: 600;
+    color: #4c63d2;
+    margin-bottom: 0.25rem;
+}
+
+.history-item-date {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.history-item-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.history-item-actions button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: rgba(102, 126, 234, 0.1);
+    color: #4c63d2;
+}
+
+.history-item-actions button:hover {
+    background: rgba(102, 126, 234, 0.2);
+}
+
+.template-card, .theme-card, .prompt-card {
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.template-card:hover, .theme-card:hover, .prompt-card:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-2px);
+}
+
+.template-card.active, .theme-card.active {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.prompt-card {
+    text-align: left;
+    padding: 1.5rem;
+}
+
+.prompt-card-name {
+    font-weight: 600;
+    color: #4c63d2;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.prompt-card-preview {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.4;
+    max-height: 60px;
+    overflow: hidden;
+}
+</style>
+
+<script>
+// Pro UI Functions
+function openHistoryModal() {
+    const modal = document.getElementById('history-modal');
+    modal.classList.remove('hidden');
+    renderHistoryList();
+}
+
+function closeHistoryModal() {
+    document.getElementById('history-modal').classList.add('hidden');
+}
+
+function renderHistoryList(searchQuery = '') {
+    const list = document.getElementById('history-list');
+    const history = searchQuery 
+        ? window.AiMarkmapPro.history.search(searchQuery)
+        : window.AiMarkmapPro.history.getAll();
+    
+    if (history.length === 0) {
+        list.innerHTML = '<p style="text-align: center; color: #666;">No history found</p>';
+        return;
+    }
+    
+    list.innerHTML = history.map(item => `
+        <div class="history-item" onclick="loadHistoryItem(${item.id})">
+            <div class="history-item-title">${item.title}</div>
+            <div class="history-item-date">${new Date(item.timestamp).toLocaleString()}</div>
+            <div class="history-item-actions" onclick="event.stopPropagation()">
+                <button onclick="deleteHistoryItem(${item.id})">🗑️ Delete</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function loadHistoryItem(id) {
+    const item = window.AiMarkmapPro.history.get(id);
+    if (item) {
+        document.getElementById('topic-input').value = item.markdown;
+        currentMarkdown = item.markdown;
+        updateMarkmap(item.markdown);
+        switchView('input');
+        closeHistoryModal();
+    }
+}
+
+function deleteHistoryItem(id) {
+    if (confirm('Delete this item?')) {
+        window.AiMarkmapPro.history.delete(id);
+        renderHistoryList();
+    }
+}
+
+function exportHistory() {
+    const blob = window.AiMarkmapPro.history.exportAll();
+    window.AiMarkmapPro.export.downloadBlob(blob, 'ai-markmap-history.json');
+}
+
+function importHistory() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (window.AiMarkmapPro.history.importAll(event.target.result)) {
+                    alert('History imported successfully!');
+                    renderHistoryList();
+                } else {
+                    alert('Failed to import history');
+                }
+            };
+            reader.readAsText(file);
+        }
+    };
+    input.click();
+}
+
+function clearHistory() {
+    if (confirm('Clear all history? This cannot be undone.')) {
+        localStorage.removeItem('ai-markmap-history');
+        renderHistoryList();
+    }
+}
+
+// History search
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('history-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderHistoryList(e.target.value);
+        });
+    }
+});
+
+function openTemplateModal() {
+    const modal = document.getElementById('template-modal');
+    modal.classList.remove('hidden');
+    renderTemplateGrid();
+}
+
+function closeTemplateModal() {
+    document.getElementById('template-modal').classList.add('hidden');
+}
+
+function renderTemplateGrid() {
+    const grid = document.getElementById('template-grid');
+    const templates = window.AiMarkmapPro.templates.getAll();
+    
+    grid.innerHTML = templates.map(template => `
+        <div class="template-card" onclick="applyTemplate('${template.id}')">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">${template.name.split(' ')[0]}</div>
+            <div style="font-weight: 600;">${template.name.split(' ').slice(1).join(' ')}</div>
+        </div>
+    `).join('');
+}
+
+function applyTemplate(id) {
+    const template = window.AiMarkmapPro.templates.get(id);
+    if (template) {
+        document.getElementById('topic-input').value = template.markdown;
+        currentMarkdown = template.markdown;
+        updateMarkmap(template.markdown);
+        switchView('input');
+        closeTemplateModal();
+    }
+}
+
+function openThemeModal() {
+    const modal = document.getElementById('theme-modal');
+    modal.classList.remove('hidden');
+    renderThemeGrid();
+}
+
+function closeThemeModal() {
+    document.getElementById('theme-modal').classList.add('hidden');
+}
+
+function renderThemeGrid() {
+    const grid = document.getElementById('theme-grid');
+    const themes = window.AiMarkmapPro.themes.getAll();
+    const current = window.AiMarkmapPro.themes.getCurrent();
+    
+    grid.innerHTML = themes.map(theme => `
+        <div class="theme-card ${theme.id === current ? 'active' : ''}" onclick="applyTheme('${theme.id}')">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">${theme.name.split(' ')[0]}</div>
+            <div style="font-weight: 600; font-size: 0.9rem;">${theme.name.split(' ').slice(1).join(' ')}</div>
+        </div>
+    `).join('');
+}
+
+function applyTheme(id) {
+    window.AiMarkmapPro.themes.apply(id);
+    if (mm) {
+        updateMarkmap(currentMarkdown);
+        mm.fit();
+    }
+    renderThemeGrid();
+}
+
+function openPromptLibraryModal() {
+    const modal = document.getElementById('prompt-library-modal');
+    modal.classList.remove('hidden');
+    renderPromptList();
+}
+
+function closePromptLibraryModal() {
+    document.getElementById('prompt-library-modal').classList.add('hidden');
+}
+
+function renderPromptList() {
+    const list = document.getElementById('prompt-list');
+    const prompts = window.AiMarkmapPro.prompts.getAll();
+    
+    list.innerHTML = prompts.map(prompt => `
+        <div class="prompt-card" onclick="applyPrompt('${prompt.id}')">
+            <div class="prompt-card-name">${prompt.name}</div>
+            <div class="prompt-card-preview">${prompt.prompt.substring(0, 150)}...</div>
+        </div>
+    `).join('');
+}
+
+function applyPrompt(id) {
+    const prompt = window.AiMarkmapPro.prompts.get(id);
+    if (prompt) {
+        AI_PROMPT_TEMPLATE = prompt.prompt;
+        localStorage.setItem('ai-markmap-prompt', AI_PROMPT_TEMPLATE);
+        closePromptLibraryModal();
+        alert('Prompt applied! Generate a new mind map to use it.');
+    }
+}
+
+function openShareModal() {
+    const modal = document.getElementById('share-modal');
+    const theme = window.AiMarkmapPro.themes.getCurrent();
+    const url = window.AiMarkmapPro.share.generateShareUrl(currentMarkdown, theme);
+    document.getElementById('share-url').value = url;
+    modal.classList.remove('hidden');
+}
+
+function closeShareModal() {
+    document.getElementById('share-modal').classList.add('hidden');
+}
+
+function copyShareUrl() {
+    const textarea = document.getElementById('share-url');
+    textarea.select();
+    window.AiMarkmapPro.share.copyToClipboard(textarea.value)
+        .then(() => alert('URL copied to clipboard!'))
+        .catch(() => alert('Failed to copy URL'));
+}
+
+function openShareUrl() {
+    const url = document.getElementById('share-url').value;
+    window.open(url, '_blank');
+}
+
+// Enhanced keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey) {
+        if (e.key === 'h') {
+            e.preventDefault();
+            openHistoryModal();
+        } else if (e.key === 't') {
+            e.preventDefault();
+            openTemplateModal();
+        } else if (e.key === 'k') {
+            e.preventDefault();
+            openPromptLibraryModal();
+        } else if (e.shiftKey && e.key === 'S') {
+            e.preventDefault();
+            exportSVG();
+        }
+    }
+});
+
+// Auto-save integration
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.AiMarkmapPro && window.AiMarkmapPro.autoSave) {
+        window.AiMarkmapPro.autoSave.start(() => currentMarkdown);
+    }
+    
+    // Check for auto-saved content
+    const autoSaved = window.AiMarkmapPro.autoSave.getAutoSaved();
+    if (autoSaved && !window.sharedMarkdown) {
+        const timeDiff = Date.now() - new Date(autoSaved.timestamp).getTime();
+        if (timeDiff < 3600000) { // Less than 1 hour
+            if (confirm('Restore auto-saved content from ' + new Date(autoSaved.timestamp).toLocaleString() + '?')) {
+                document.getElementById('topic-input').value = autoSaved.markdown;
+                currentMarkdown = autoSaved.markdown;
+                updateMarkmap(autoSaved.markdown);
+            }
+        }
+    }
+    
+    // Load shared content if available
+    if (window.sharedMarkdown) {
+        document.getElementById('topic-input').value = window.sharedMarkdown;
+        currentMarkdown = window.sharedMarkdown;
+        updateMarkmap(window.sharedMarkdown);
+        switchView('markdown');
+    }
+});
+
+// Save to history after successful generation
+const originalGenerateWithAI = window.generateWithAI;
+window.generateWithAI = async function() {
+    await originalGenerateWithAI.call(this);
+    if (aiResults.length > 0) {
+        window.AiMarkmapPro.history.save(currentMarkdown);
+    }
+};
+</script>
