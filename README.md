@@ -1,107 +1,122 @@
-<p align="center">
-  中文 | <a href="./README_EN.md">English</a>
-</p>
+# 🚀 Ai-Markmap-Pro
+
+**Professional AI-Powered Mind Map Generator** - Enhanced version with advanced features
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/platoba/Ai-Markmap-Pro)
+
+> 🎯 **Based on** [Ai-Markmap](https://github.com/kongkongyo/Ai-Markmap) by kongkongyo - Enhanced with professional features
+
+## ✨ What's New in Pro
+
+- 📚 **History Management** - Save, search, and restore your mind maps
+- 🎨 **Theme System** - Dark mode + 5 beautiful color schemes  
+- 📦 **Template Library** - 15+ ready-to-use templates
+- 🔗 **Share System** - Generate shareable URLs
+- 📤 **Advanced Export** - MD/JSON/PDF support
+- 💡 **Prompt Library** - 20+ AI prompt templates
+- ⌨️ **Power Shortcuts** - Extended keyboard controls
+- 💾 **Auto-save** - Never lose your work
+- 🔍 **Search & Filter** - Find maps instantly
+- 📊 **Batch Operations** - Export multiple versions
+
+## 🚀 Quick Start
+
+1. Download `index-pro.html`
+2. Open in your browser
+3. Configure API settings (OpenAI, Claude, Gemini, etc.)
+4. Start creating amazing mind maps!
+
+## 📖 Documentation
+
+See [README_PRO.md](README_PRO.md) for detailed documentation.
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Enter` | Generate mind map |
+| `Ctrl+S` | Export PNG |
+| `Ctrl+Shift+S` | Export SVG |
+| `Ctrl+H` | Open history |
+| `Ctrl+T` | Open templates |
+| `Ctrl+K` | Open prompt library |
+| `←` / `→` | Switch versions |
+| `F11` | Fullscreen |
+
+## 🎨 Features
+
+### History Management
+Every generated map is automatically saved. Search, restore, or export your entire history.
+
+### Template System
+Choose from 15+ templates:
+- 📋 Project Planning
+- 🧠 Brainstorming
+- 📚 Learning Notes
+- 🎯 Goal Setting
+- 📊 SWOT Analysis
+- 🗺️ Roadmap
+- And more...
+
+### Theme System
+- 🌊 Ocean
+- 🌲 Forest
+- 🌅 Sunset
+- 💜 Purple
+- ⚫ Monochrome
+- 🌙 Dark Mode
+
+### Prompt Library
+20+ specialized AI prompts for different scenarios:
+- Detailed Analysis
+- Simple & Clean
+- Creative Brainstorm
+- Academic Research
+- Business Strategy
+- Technical Architecture
+- And more...
+
+## 🔧 API Support
+
+Works with any OpenAI-compatible API:
+- OpenAI (GPT-4, GPT-3.5)
+- Anthropic Claude
+- Google Gemini
+- Azure OpenAI
+- Custom endpoints
+
+## 📤 Export Options
+
+- **PNG**: High-resolution images
+- **SVG**: Scalable vector graphics
+- **Markdown**: Plain text format
+- **JSON**: Structured data
+- **PDF**: Via browser print
+
+## 🔗 Sharing
+
+Generate shareable URLs with encoded mind map data. Share your maps with anyone!
+
+## 🤝 Contributing
+
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 📝 License
+
+MIT License - see [LICENSE](LICENSE)
+
+## 🙏 Acknowledgments
+
+- Original: [Ai-Markmap](https://github.com/kongkongyo/Ai-Markmap) by kongkongyo
+- [Markmap](https://markmap.js.org/) - Mind map rendering
+- [D3.js](https://d3js.org/) - Data visualization
+
+## 📧 Contact
+
+- GitHub: [@platoba](https://github.com/platoba)
+- Issues: [Report a bug](https://github.com/platoba/Ai-Markmap-Pro/issues)
 
 ---
 
-**`AiMarkmap`** 是一个零依赖、纯前端的单文件 HTML 应用。它利用大语言模型（LLM）的强大能力，将您的文本、想法或 Markdown 内容智能地转换成结构清晰、可交互的思维导图。**适合快速梳理新闻报道、分析文章结构或消化长篇内容，助您在海量信息中迅速抓住核心脉络**。
-
-![AiMarkmap Screenshot](screenshot.png)
-> **关于本项目的一个有趣事实**：
-> 这个项目从最初的概念到最终的实现，超过 90% 的代码（包括 HTML, CSS, 和 JavaScript 逻辑）均由 AI（主要由 `gpt-4o-mini`, `gemini-2.5-pro` 和 `claude-3-7-sonnet`）编写、重构和迭代完成。
-
-## ✨ 主要特性
-
-*   **🤖 AI 智能生成**：输入任意主题或粘贴大段文本，AI 将自动为您提炼关键信息并生成结构化的思维导图。
-*   **🔄 多版本生成**：通过调节滑块，一次生成多个（1-5个）不同风格和结构的思维导图版本，供您挑选最佳方案。
-*   **✍️ 交互式编辑与优化**:
-    *   **Markdown 实时编辑**: 在左侧编辑区修改 Markdown 内容，右侧思维导图将即时同步更新。
-    *   **节点直接操作**: 在思维导图上 **右键点击** 任意节点，可直接进行 **编辑** 或 **删除** 操作，方便快速微调 AI 生成的结果。
-*   **🎨 高度可定制**：
-    *   **API 设置**：支持连接任何兼容 OpenAI API 格式的终端节点（包括自托管模型），支持跨域请求。
-    *   **模型选择**：自动查询并加载可用模型列表，同时支持输入自定义模型名称。
-    *   **Prompt 自定义**：通过独立的设置面板，您可以完全掌控发送给 AI 的指令（Prompt），以满足个性化需求。
-*   **🚀 高效操作**：
-    *   **一键粘贴并生成**：点击"粘贴并生成"按钮，可直接读取剪贴板内容并启动 AI 生成，简化操作流程。
-    *   **双语界面**：内置中英双语切换，满足不同用户的语言习惯。
-*   **🖼️ 智能导出**：
-    *   一键将当前思维导图导出为高清 PNG 图片或矢量 SVG 文件。
-    *   **智能文件命名**：导出文件名自动根据思维导图的中心主题生成，格式为 `主题_时间戳.png/svg`，方便管理和查找。
-*   **📱 移动端适配**：
-    *   完整支持手机和平板设备，界面自动适配不同屏幕尺寸。
-    *   底部标签栏设计，方便在编辑器和思维导图之间快速切换。
-    *   汉堡菜单整合设置入口，移动端操作更便捷。
-    *   支持横屏模式预览思维导图，获得更大的展示空间。
-*   **⌨️ 快捷键支持**：提供全屏、切换版本、保存、快速生成等快捷键，提升操作效率。
-*   **❓ 帮助与信息**：内置帮助按钮，点击可查看详细的使用说明、服务条款和隐私政策。
-*   **🔒 隐私安全**：所有配置（包括 API 密钥）均保存在您本地浏览器的 `localStorage` 中，不会上传至任何服务器。
-
-## 🚀 快速开始
-*您可以直接在浏览器中打开 `index.html` 文件开始使用，无需安装或构建。*
-1.  **下载文件**：下载 `index.html` 文件。
-2.  **浏览器打开**：
-    *  **桌面端**：直接在浏览器（如 Chrome, Firefox, Edge）中打开该 HTML 文件。
-    *  **移动端**：在手机或平板浏览器中打开，界面会自动适配。横屏模式下可获得更好的思维导图浏览体验。
-3.  **配置 API**：
-    *   点击界面左上角的 **`⚙️ API设置`** 按钮。
-    *   在 **API 地址** 输入框中，填入您的 AI 服务提供商提供的 API 根地址（例如：`https://api.openai.com`）。工具会自动为您补全至 `/v1/chat/completions`。
-    *   在 **API 秘钥** 输入框中，填入您的 API Key。
-    *   点击 **`💾 保存并关闭`**。
-4.  **开始生成**：
-    *   **方式一（输入）**：在左侧输入框中输入您想生成导图的内容。
-    *   **方式二（粘贴）**：点击 **`📋 粘贴并生成`** 按钮，自动粘贴剪贴板内容并开始生成。
-    *   通过滑块选择希望生成的 **版本数量**。
-    *   点击 **`🚀 AI生成`** 按钮（或使用快捷键 `Ctrl+Enter`）。
-5.  **浏览与优化**：
-    *   等待 AI 处理完成，右侧将展示生成的思维导图。
-    *   如果生成了多个版本，点击顶部的 **`版本 X`** 按钮或使用 `←` / `→` 方向键进行切换。
-    *   在导图上 **右键点击** 节点可进行编辑或删除，快速优化结构。
-6.  **导出**：
-    *   点击 **`导出 PNG`** 或 **`导出 SVG`** 按钮即可保存。
-    *   导出的文件名会自动根据思维导图的中心主题生成，格式为 `主题_YYYYMMDDHHMMSS.png/svg`。
-
-## 🔧 配置详解
-
-### API 设置
-- **API 地址**: 必须是一个兼容 OpenAI `chat/completions` 接口的 URL。工具会自动处理末尾的路径。
-    > **提示**: 如果您还没有 API 密钥，可以前往 **[硅基流动 (SiliconFlow)](https://cloud.siliconflow.cn/i/9afjLTa)** 注册，他们为用户提供一些免费的AI模型。
-- **API 秘钥**: 您的服务凭证。点击旁边的 `👁️` 图标可以切换密钥的可见性。
-
-### 模型与 Prompt
-- **模型选择**:
-    - 点击 **`🔍 查询`** 按钮可以从您的 API 地址自动获取可用的模型列表，并填充到下拉框中。
-    - 您也可以在下拉框中选择 `自定义`，并手动输入模型名称。
-- **Prompt 设置**:
-    - 点击 **`📝 Prompt设置`** 按钮打开 Prompt 编辑器。
-    - 您可以修改模板来指导 AI 的行为。请务必保留 `{{CONTENT}}` 占位符，它将被替换为您的输入内容。
-
-## ⌨️ 快捷键
-
-| 按键组合         | 功能                               |
-| ---------------- | ---------------------------------- |
-| `Ctrl` + `Enter` | 在输入框中快速生成思维导图         |
-| `F11`            | 切换/退出思维导图全屏显示          |
-| `Ctrl` + `S`     | 导出当前思维导图为 PNG 图片        |
-| `←` / `→`        | 在多个 AI 生成版本之间切换         |
-
-## 🛠️ 技术栈
-
-本项目完全基于原生 Web 技术构建，无任何外部框架依赖。
-
--   **核心逻辑**: Vanilla JavaScript (ES6+)
--   **思维导图渲染**: [Markmap](https://markmap.js.org/) (`markmap-lib@0.15.3` & `markmap-view@0.15.3`)
--   **SVG 渲染与交互核心**: [D3.js](https://d3js.org/) (`d3@7.8.5`)
--   **图片导出**: 使用**原生 Canvas API** 实现
-    -   **原因说明**：为减少外部依赖、优化性能并支持 SVG 导出，项目使用原生 Canvas API 而非第三方库。PNG 导出功能通过将 SVG 内容绘制到离屏 Canvas 上来完成，可靠性和灵活性更高。
-
-## 📝 更新日志
-
-### 最近更新
-- **移动端适配**：全面支持手机和平板设备访问，新增底部导航栏、汉堡菜单、横屏预览等移动端专属功能
-- **智能文件命名**：导出的 SVG/PNG 文件名现在会自动根据思维导图的中心主题生成，格式为 `主题_YYYYMMDDHHMMSS.扩展名`
-- **跨域支持优化**：改进了模型 API URL 构建逻辑，更好地支持跨域请求
-- **导出修复**：修复了导出 SVG/PNG 时文本可能不完整的问题
-- **帮助系统**：新增帮助按钮，点击可查看使用说明、服务条款和隐私政策
-
-## 📜 许可证
-本项目采用 [MIT License](./LICENSE) 开源。
+**Made with ❤️ by the Ai-Markmap-Pro team**
