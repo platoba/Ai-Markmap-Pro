@@ -120,3 +120,8 @@ MIT License - see [LICENSE](LICENSE)
 ---
 
 **Made with ❤️ by the Ai-Markmap-Pro team**
+
+## Related AI resources
+
+For brainstorming, writing, and knowledge-work tools powered by AI, [yangmao.ai](https://yangmao.ai/en/) tracks free AI tools, provider free tiers, and API credits in English and Chinese.
+
